@@ -5,13 +5,11 @@ import 'package:api_request_bloc/features/comments/models/comments_data_model.da
 import 'package:http/http.dart' as http;
 
 class CommentsRepo {
-
   static Future<List<CommentsDataModel>> fetchPosts() async {
     var client = http.Client();
     List<CommentsDataModel> comments = [];
     try {
-      var response = await client
-          .get(Uri.parse(commentsUrl));
+      var response = await client.get(Uri.parse(commentsUrl));
 
       List result = jsonDecode(response.body);
 
@@ -27,6 +25,28 @@ class CommentsRepo {
     } catch (e) {
       log(e.toString());
       return [];
+    }
+  }
+
+  static Future<bool> addComments() async {
+    var client = http.Client();
+    try {
+      var response = await client.post(Uri.parse(commentsUrl), body: {
+        "postId": "postId",
+        "id": "id",
+        "name": "name",
+        "email": "email",
+        "body": "body"
+      });
+
+      if (response.statusCode >= 200 && response.statusCode < 300) {
+        return true;
+      } else {
+        return false;
+      }
+    } catch (e) {
+      log(e.toString());
+      return false;
     }
   }
 }

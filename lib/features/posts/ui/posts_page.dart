@@ -66,7 +66,10 @@ class _PostPageState extends State<PostPage> {
                         child: const Text('Cancel'),
                       ),
                       TextButton(
-                        onPressed: () => Navigator.pop(context, 'OK'),
+                        onPressed: () {
+                          commentsBloc.add(CommentsAddEvent());
+                          Navigator.pop(context, 'OK');
+                        } ,
                         child: const Text('OK'),
                       ),
                     ],
