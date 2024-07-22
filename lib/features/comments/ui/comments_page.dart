@@ -45,26 +45,24 @@ class _CommentPageState extends State<CommentPage> {
 
               case CommentFetchSuccessfulState:
                 final successState = state as CommentFetchSuccessfulState;
-                return Container(
-                  child: ListView.builder(
-                    itemCount: successState.comments.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        color: const Color.fromARGB(255, 75, 195, 247),
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Title:'),
-                            Text(successState.comments[index].name),
-                            const Text('Body:'),
-                            Text(successState.comments[index].body),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                return ListView.builder(
+                  itemCount: successState.comments.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      color: const Color.fromARGB(255, 75, 195, 247),
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Title:'),
+                          Text(successState.comments[index].name),
+                          const Text('Body:'),
+                          Text(successState.comments[index].body),
+                        ],
+                      ),
+                    );
+                  },
                 );
 
               case CommentsFailureState:

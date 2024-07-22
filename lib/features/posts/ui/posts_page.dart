@@ -29,7 +29,52 @@ class _PostPageState extends State<PostPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('API - Post Example'),
+        title: const Text('Post'),
+        leading: IconButton(
+          onPressed: () {
+            showDialog<String>(
+              context: context,
+              builder: (context) => AlertDialog(
+                title: const Text('Menu'),
+                content: const Text('You have clicked on the Menu button...'),
+                actions: [
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'Cancel'),
+                    child: const Text('Cancel'),
+                  ),
+                  TextButton(
+                    onPressed: () => Navigator.pop(context, 'OK'),
+                    child: const Text('OK'),
+                  ),
+                ],
+              ),
+            );
+          },
+          icon: const Icon(Icons.menu),
+        ),
+        actions: [
+          IconButton(
+              onPressed: () {
+                showDialog<String>(
+                  context: context,
+                  builder: (context) => AlertDialog(
+                    title: const Text('Add'),
+                    content: const Text('Add api call?'),
+                    actions: [
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'Cancel'),
+                        child: const Text('Cancel'),
+                      ),
+                      TextButton(
+                        onPressed: () => Navigator.pop(context, 'OK'),
+                        child: const Text('OK'),
+                      ),
+                    ],
+                  ),
+                );
+              },
+              icon: const Icon(Icons.add))
+        ],
       ),
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add),
@@ -60,26 +105,24 @@ class _PostPageState extends State<PostPage> {
 
               case PostFetchSuccessfulState:
                 final successState = state as PostFetchSuccessfulState;
-                return Container(
-                  child: ListView.builder(
-                    itemCount: successState.posts.length,
-                    itemBuilder: (context, index) {
-                      return Container(
-                        color: Colors.blueGrey.shade100,
-                        padding: const EdgeInsets.all(10),
-                        margin: const EdgeInsets.all(5),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text('Post Title:'),
-                            Text(successState.posts[index].title),
-                            const Text('Body:'),
-                            Text(successState.posts[index].body),
-                          ],
-                        ),
-                      );
-                    },
-                  ),
+                return ListView.builder(
+                  itemCount: successState.posts.length,
+                  itemBuilder: (context, index) {
+                    return Container(
+                      color: Colors.blueGrey.shade100,
+                      padding: const EdgeInsets.all(10),
+                      margin: const EdgeInsets.all(5),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text('Post Title:'),
+                          Text(successState.posts[index].title),
+                          const Text('Body:'),
+                          Text(successState.posts[index].body),
+                        ],
+                      ),
+                    );
+                  },
                 );
 
               case PostsFailureState:
