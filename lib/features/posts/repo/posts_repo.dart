@@ -1,5 +1,6 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:api_request_bloc/constants/constants.dart';
 import 'package:api_request_bloc/features/posts/models/post_data_model.dart';
 import 'package:http/http.dart' as http;
 
@@ -9,7 +10,7 @@ class PostsRepo {
     List<PostDataModel> posts = [];
     try {
       var response = await client
-          .get(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+          .get(Uri.parse(postsUrl));
 
       List result = jsonDecode(response.body);
 

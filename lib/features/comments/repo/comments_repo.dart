@@ -1,15 +1,17 @@
 import 'dart:convert';
 import 'dart:developer';
+import 'package:api_request_bloc/constants/constants.dart';
 import 'package:api_request_bloc/features/comments/models/comments_data_model.dart';
 import 'package:http/http.dart' as http;
 
 class CommentsRepo {
+
   static Future<List<CommentsDataModel>> fetchPosts() async {
     var client = http.Client();
     List<CommentsDataModel> comments = [];
     try {
       var response = await client
-          .get(Uri.parse('https://jsonplaceholder.typicode.com/comments'));
+          .get(Uri.parse(commentsUrl));
 
       List result = jsonDecode(response.body);
 
