@@ -5,7 +5,8 @@ abstract class PostsState {}
 abstract class PostsActionState extends PostsState {}
 
 class PostsInitial extends PostsState {}
-class PostsFailure extends PostsState {}
+class PostsFailureState extends PostsState {}
+class PostsLoadingState extends PostsState {}
 
 class PostFetchSuccessfulState extends PostsState {
   final List<PostDataModel> posts;

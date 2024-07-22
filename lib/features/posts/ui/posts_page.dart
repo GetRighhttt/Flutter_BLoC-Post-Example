@@ -26,6 +26,11 @@ class _PostPageState extends State<PostPage> {
       appBar: AppBar(
         title: const Text('API - Post Example'),
       ),
+      // floatingActionButton: FloatingActionButton(
+      //       child: Icon(Icons.add),
+      //       onPressed: () {
+      //         postsBloc.add(PostAddEvent());
+      //       }),
       body: BlocConsumer<PostsBloc, PostsState>(
           bloc: postsBloc,
           listenWhen: (previous, current) => current is PostsActionState,
@@ -33,6 +38,12 @@ class _PostPageState extends State<PostPage> {
           listener: (context, state) {},
           builder: (context, state) {
             switch (state.runtimeType) {
+
+              case PostsLoadingState:
+                return const Center(
+                  child: CircularProgressIndicator(),
+                );
+
               case PostFetchSuccessfulState:
                 final successState = state as PostFetchSuccessfulState;
                 return Container(
@@ -50,17 +61,19 @@ class _PostPageState extends State<PostPage> {
                             Text(successState.posts[index].title),
                             const Text('Body:'),
                             Text(successState.posts[index].body),
-                            ],
+                          ],
                         ),
                       );
                     },
                   ),
                 );
-              case const (PostsFailure):
-                final failureState = state as PostsFailure;
+
+              case const (PostsFailureState):
+                final failureState = state as PostsFailureState;
                 return Text(failureState.toString());
+
               default:
-              return const SizedBox();
+                return const SizedBox();
             }
           }),
     );
