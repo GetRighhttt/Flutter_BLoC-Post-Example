@@ -13,7 +13,7 @@ class PostFetchSuccessfulState extends PostsState {
   });
 }
 
-// action states used for listeners
+// action states used
 abstract class PostsActionState extends PostsState {}
 class PostAdditionSuccessState extends PostsActionState {}
 class PostAdditionFailureState extends PostsActionState {}

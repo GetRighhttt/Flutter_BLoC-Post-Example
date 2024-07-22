@@ -1,3 +1,6 @@
+import 'dart:developer';
+
+import 'package:api_request_bloc/features/comments/bloc/comments_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:api_request_bloc/features/posts/bloc/posts_bloc.dart';
@@ -11,6 +14,7 @@ class PostPage extends StatefulWidget {
 
 class _PostPageState extends State<PostPage> {
   final PostsBloc postsBloc = PostsBloc();
+  final CommentsBloc commentsBloc = CommentsBloc();
 
   @override
   void initState() {
@@ -25,10 +29,67 @@ class _PostPageState extends State<PostPage> {
         title: const Text('API - Post Example'),
       ),
       floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {
-              postsBloc.add(PostAddEvent());
-            }),
+          child: const Icon(Icons.add),
+          onPressed: () {
+            // add comments to log
+            commentsBloc.add(CommentsInitialFetchEvent());
+            log(CommentsInitialFetchEvent().toString());
+
+            // show Bottom sheet
+            showModalBottomSheet<void>(
+              context: context,
+              builder: (BuildContext context) {
+                return BlocConsumer<CommentsBloc, CommentsState>(
+                    bloc: commentsBloc,
+                    listenWhen: (previous, current) =>
+                        current is CommentsActionState,
+                    buildWhen: (previous, current) =>
+                        current is! CommentsActionState,
+                    listener: (context, state) {},
+                    builder: (context, state) {
+                      switch (state.runtimeType) {
+                        case CommentsLoadingState:
+                          return const Center(
+                            child: CircularProgressIndicator(),
+                          );
+
+                        case CommentFetchSuccessfulState:
+                          final successState =
+                              state as CommentFetchSuccessfulState;
+                          return Container(
+                            child: ListView.builder(
+                              itemCount: successState.comments.length,
+                              itemBuilder: (context, index) {
+                                return Container(
+                                  color: Colors.blue.shade100,
+                                  padding: const EdgeInsets.all(10),
+                                  margin: const EdgeInsets.all(5),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    children: [
+                                      const Text('Comment Name:'),
+                                      Text(successState.comments[index].name),
+                                      const Text('Body:'),
+                                      Text(successState.comments[index].body),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          );
+
+                        case CommentsFailureState:
+                          final failureState = state as CommentsFailureState;
+                          return Text(failureState.toString());
+
+                        default:
+                          return const SizedBox();
+                      }
+                    });
+              },
+            );
+          }),
       body: BlocConsumer<PostsBloc, PostsState>(
           bloc: postsBloc,
           listenWhen: (previous, current) => current is PostsActionState,
@@ -36,7 +97,6 @@ class _PostPageState extends State<PostPage> {
           listener: (context, state) {},
           builder: (context, state) {
             switch (state.runtimeType) {
-
               case PostsLoadingState:
                 return const Center(
                   child: CircularProgressIndicator(),
@@ -55,7 +115,7 @@ class _PostPageState extends State<PostPage> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Text('Title:'),
+                            const Text('Post Title:'),
                             Text(successState.posts[index].title),
                             const Text('Body:'),
                             Text(successState.posts[index].body),
