@@ -1,4 +1,3 @@
-import 'package:api_request_bloc/features/comments/ui/comments_page.dart';
 import 'package:api_request_bloc/features/posts/ui/posts_page.dart';
 import 'package:flutter/material.dart';
 
