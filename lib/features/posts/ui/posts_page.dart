@@ -59,7 +59,7 @@ class _PostPageState extends State<PostPage> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Add'),
-                    content: const Text('Add api call?'),
+                    content: const Text('Add instance of comments to Log File?'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -68,7 +68,7 @@ class _PostPageState extends State<PostPage> {
                       TextButton(
                         onPressed: () {
                           commentsBloc.add(CommentsAddEvent());
-                          Navigator.pop(context, 'OK');
+                          Navigator.pop(context, 'Add');
                         } ,
                         child: const Text('OK'),
                       ),
