@@ -1,9 +1,7 @@
 part of 'posts_bloc.dart';
 
+// regular post states
 abstract class PostsState {}
-
-abstract class PostsActionState extends PostsState {}
-
 class PostsInitial extends PostsState {}
 class PostsFailureState extends PostsState {}
 class PostsLoadingState extends PostsState {}
@@ -14,3 +12,8 @@ class PostFetchSuccessfulState extends PostsState {
     required this.posts,
   });
 }
+
+// action states used for listeners
+abstract class PostsActionState extends PostsState {}
+class PostAdditionSuccessState extends PostsActionState {}
+class PostAdditionFailureState extends PostsActionState {}

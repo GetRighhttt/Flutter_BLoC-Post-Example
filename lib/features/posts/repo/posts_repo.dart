@@ -35,7 +35,6 @@ class PostsRepo {
       var response = await client.post(
           Uri.parse('https://jsonplaceholder.typicode.com/posts'),
           body: {"title": "Title", "body": "Body", "userId": "22"});
-
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return true;
       } else {
@@ -53,10 +52,7 @@ class PostsRepo {
     var client = http.Client();
     try {
       var response = await client.delete(
-          Uri.parse('https://jsonplaceholder.typicode.com/posts'),
-          headers: <String, String>{
-            'Content-Type': 'application/json; charset=UTF-8'
-          });
+          Uri.parse('https://jsonplaceholder.typicode.com/posts'));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return true;
       } else {

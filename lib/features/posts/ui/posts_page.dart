@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:api_request_bloc/features/posts/bloc/posts_bloc.dart';
 
@@ -26,11 +24,11 @@ class _PostPageState extends State<PostPage> {
       appBar: AppBar(
         title: const Text('API - Post Example'),
       ),
-      // floatingActionButton: FloatingActionButton(
-      //       child: Icon(Icons.add),
-      //       onPressed: () {
-      //         postsBloc.add(PostAddEvent());
-      //       }),
+      floatingActionButton: FloatingActionButton(
+            child: const Icon(Icons.add),
+            onPressed: () {
+              postsBloc.add(PostAddEvent());
+            }),
       body: BlocConsumer<PostsBloc, PostsState>(
           bloc: postsBloc,
           listenWhen: (previous, current) => current is PostsActionState,
@@ -68,7 +66,7 @@ class _PostPageState extends State<PostPage> {
                   ),
                 );
 
-              case const (PostsFailureState):
+              case PostsFailureState:
                 final failureState = state as PostsFailureState;
                 return Text(failureState.toString());
 
