@@ -44,10 +44,10 @@ class _CommentPageState extends State<CommentPage> {
               case CommentFetchSuccessfulState:
                 final successState = state as CommentFetchSuccessfulState;
                 return ListView.builder(
+                  clipBehavior: Clip.antiAlias,
                   itemCount: successState.comments.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      color: const Color.fromARGB(255, 75, 195, 247),
                       padding: const EdgeInsets.all(10),
                       margin: const EdgeInsets.all(5),
                       child: Column(
