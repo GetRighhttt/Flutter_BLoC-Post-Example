@@ -27,9 +27,8 @@ class _CommentPageState extends State<CommentPage> {
       appBar: AppBar(
         title: const Text('Comments Page'),
       ),
-      floatingActionButton: FloatingActionButton(
-            child: const Icon(Icons.add),
-            onPressed: () {}),
+      floatingActionButton:
+          FloatingActionButton(child: const Icon(Icons.add), onPressed: () {}),
       body: BlocConsumer<CommentsBloc, CommentsState>(
           bloc: commentsBloc,
           listenWhen: (previous, current) => current is CommentsActionState,
@@ -37,7 +36,6 @@ class _CommentPageState extends State<CommentPage> {
           listener: (context, state) {},
           builder: (context, state) {
             switch (state.runtimeType) {
-
               case CommentsLoadingState():
                 return const Center(
                   child: CircularProgressIndicator(),

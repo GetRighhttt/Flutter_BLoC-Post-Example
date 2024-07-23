@@ -9,8 +9,7 @@ class PostsRepo {
     var client = http.Client();
     List<PostDataModel> posts = [];
     try {
-      var response = await client
-          .get(Uri.parse(postsUrl));
+      var response = await client.get(Uri.parse(postsUrl));
 
       List result = jsonDecode(response.body);
 
@@ -47,13 +46,12 @@ class PostsRepo {
     }
   }
 
-
 // delete from server
   static Future<bool> deletePost() async {
     var client = http.Client();
     try {
-      var response = await client.delete(
-          Uri.parse('https://jsonplaceholder.typicode.com/posts'));
+      var response = await client
+          .delete(Uri.parse('https://jsonplaceholder.typicode.com/posts'));
       if (response.statusCode >= 200 && response.statusCode < 300) {
         return true;
       } else {

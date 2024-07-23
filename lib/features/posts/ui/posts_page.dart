@@ -59,7 +59,8 @@ class _PostPageState extends State<PostPage> {
                   context: context,
                   builder: (context) => AlertDialog(
                     title: const Text('Add'),
-                    content: const Text('Add instance of comments to Log File?'),
+                    content:
+                        const Text('Add instance of comments to Log File?'),
                     actions: [
                       TextButton(
                         onPressed: () => Navigator.pop(context, 'Cancel'),
@@ -69,7 +70,7 @@ class _PostPageState extends State<PostPage> {
                         onPressed: () {
                           commentsBloc.add(CommentsAddEvent());
                           Navigator.pop(context, 'Add');
-                        } ,
+                        },
                         child: const Text('OK'),
                       ),
                     ],
@@ -89,6 +90,9 @@ class _PostPageState extends State<PostPage> {
             // show Bottom sheet
             showModalBottomSheet<void>(
               context: context,
+              enableDrag: true,
+              isScrollControlled: true,
+              useSafeArea: true,
               builder: (BuildContext context) {
                 return const CommentPage();
               },
