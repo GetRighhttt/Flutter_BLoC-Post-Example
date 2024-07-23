@@ -4,6 +4,7 @@ import 'dart:developer';
 
 import 'package:api_request_bloc/features/comments/bloc/comments_bloc.dart';
 import 'package:api_request_bloc/features/comments/ui/comments_page.dart';
+import 'package:api_request_bloc/notifier/notifiers.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:api_request_bloc/features/posts/bloc/posts_bloc.dart';
@@ -55,29 +56,9 @@ class _PostPageState extends State<PostPage> {
         actions: [
           IconButton(
               onPressed: () {
-                showDialog<String>(
-                  context: context,
-                  builder: (context) => AlertDialog(
-                    title: const Text('Add'),
-                    content:
-                        const Text('Add instance of comments to Log File?'),
-                    actions: [
-                      TextButton(
-                        onPressed: () => Navigator.pop(context, 'Cancel'),
-                        child: const Text('Cancel'),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          commentsBloc.add(CommentsAddEvent());
-                          Navigator.pop(context, 'Add');
-                        },
-                        child: const Text('OK'),
-                      ),
-                    ],
-                  ),
-                );
+                isDarkNotifier.value = !isDarkNotifier.value;
               },
-              icon: const Icon(Icons.add))
+              icon: const Icon(Icons.light))
         ],
       ),
       floatingActionButton: FloatingActionButton(
@@ -116,7 +97,6 @@ class _PostPageState extends State<PostPage> {
                   itemCount: successState.posts.length,
                   itemBuilder: (context, index) {
                     return Container(
-                      color: Colors.blueGrey.shade100,
                       padding: const EdgeInsets.all(10),
                       margin: const EdgeInsets.all(5),
                       child: Column(
