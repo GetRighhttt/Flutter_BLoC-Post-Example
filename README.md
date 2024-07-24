@@ -8,3 +8,6 @@ Also used method channels to get the battery life of android & ios devices.
 ### Demos
 
 https://github.com/user-attachments/assets/c90c6c36-7ca9-42b9-acc2-03a3efe86ac6
+
+#### Battery Life
+https://github.com/user-attachments/assets/ec84db6a-eb08-4232-a942-9ee5e04ede50
