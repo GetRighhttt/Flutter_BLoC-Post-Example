@@ -6,6 +6,7 @@ import 'package:api_request_bloc/features/comments/bloc/comments_bloc.dart';
 import 'package:api_request_bloc/features/comments/ui/comments_page.dart';
 import 'package:api_request_bloc/notifier/notifiers.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:api_request_bloc/features/posts/bloc/posts_bloc.dart';
 
@@ -19,10 +20,15 @@ class PostPage extends StatefulWidget {
 class _PostPageState extends State<PostPage> {
   final PostsBloc postsBloc = PostsBloc();
   final CommentsBloc commentsBloc = CommentsBloc();
+  static const platform = MethodChannel('stefan.samples/battery');
+
+  String _batteryLevel = 'Loading..';
 
   @override
   void initState() {
     postsBloc.add(PostsInitialFetchEvent());
+    // getBatteryLevel();
+    log(_batteryLevel);
     super.initState();
   }
 
@@ -36,22 +42,25 @@ class _PostPageState extends State<PostPage> {
             showDialog<String>(
               context: context,
               builder: (context) => AlertDialog(
-                title: const Text('Menu'),
-                content: const Text('You have clicked on the Menu button...'),
+                title: const Text('Get Battery Level'),
+                content: Text(_batteryLevel),
                 actions: [
                   TextButton(
                     onPressed: () => Navigator.pop(context, 'Cancel'),
-                    child: const Text('Cancel'),
+                    child: const Text(
+                      'cancel',
+                      style: TextStyle(fontSize: 20),
+                    ),
                   ),
                   TextButton(
-                    onPressed: () => Navigator.pop(context, 'OK'),
+                    onPressed: () => Navigator.pop(context, 'ok'),
                     child: const Text('OK'),
                   ),
                 ],
               ),
             );
           },
-          icon: const Icon(Icons.menu),
+          icon: const Icon(Icons.battery_0_bar),
         ),
         actions: [
           IconButton(
@@ -121,5 +130,20 @@ class _PostPageState extends State<PostPage> {
             }
           }),
     );
+  }
+
+  // method to call android method
+  Future getBatteryLevel() async {
+    String batteryLevel;
+    try {
+      final result = await platform.invokeMethod<int>('getBatteryLevel');
+      batteryLevel = 'Battery level at $result % .';
+    } on PlatformException catch (e) {
+      batteryLevel = "Failed to get battery level: '${e.message}'.";
+    }
+
+    setState(() {
+      _batteryLevel = batteryLevel;
+    });
   }
 }
