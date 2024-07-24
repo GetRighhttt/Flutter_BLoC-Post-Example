@@ -13,7 +13,6 @@ import android.os.Build.VERSION_CODES
 import android.os.Build.VERSION
 
 class MainActivity: FlutterActivity() {
-    private val BATTERY_CHANNEL = "stefan.samples/battery"
 
     override fun configureFlutterEngine(@NonNull flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
@@ -44,5 +43,9 @@ class MainActivity: FlutterActivity() {
             batteryLevel = intent!!.getIntExtra(BatteryManager.EXTRA_LEVEL, -1) * 100 / intent.getIntExtra(BatteryManager.EXTRA_SCALE, -1)
         }
         return batteryLevel
+    }
+
+    companion object {
+        const private val BATTERY_CHANNEL = "stefan.samples/battery"
     }
 }
