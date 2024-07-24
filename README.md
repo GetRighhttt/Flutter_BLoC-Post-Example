@@ -2,7 +2,8 @@
 # Api Request in BLoC.
 Practicing the BLoC pattern to handle state and events.
 Used jsonplaceholder to mimic making two different api calls. One on the main
-screen and the other when the floating action button is clicked.
+screen and the other when the floating action button is clicked.<br>
+Also used method channels to get the battery life of android and ios devices.
 
 ### Demos
 
