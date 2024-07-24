@@ -28,7 +28,7 @@ class _PostPageState extends State<PostPage> {
   void initState() {
     postsBloc.add(PostsInitialFetchEvent());
     // only run when on android and need battery life. Will crash with iOS...
-    // getBatteryLevel();
+    getBatteryLevel();
     log(_batteryLevel);
     super.initState();
   }
