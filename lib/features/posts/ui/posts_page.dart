@@ -27,7 +27,8 @@ class _PostPageState extends State<PostPage> {
   @override
   void initState() {
     postsBloc.add(PostsInitialFetchEvent());
-    // getBatteryLevel();
+    // only run when on android
+    getBatteryLevel();
     log(_batteryLevel);
     super.initState();
   }
