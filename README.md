@@ -12,7 +12,7 @@ To install Project Title, follow these steps:
 
  
 1. Have Android Studio downloaded.
-2. Clone the repository into Android Studio: **`git clone: `**
+2. Clone the repository into Android Studio: **`git clone: git@github.com:GetRighhttt/Flutter_BLoC-Post-Example.git`**
 
 ## **Usage**
 
